@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -808,7 +807,7 @@
         &nbsp;&nbsp;<span class="code-keyword">def</span> <span class="code-func">__init__</span>(self):<br>
         &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="code-var">name</span> = <span class="code-str">"Abhay Sharma"</span><br>
         &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="code-var">degree</span> = <span class="code-str">"B.Tech in ECE (2022-2026)"</span><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="code-var">focus</span> = [<span class="code-str">"Backend APIs"</span>, <span class="code-str">"AI Applications"</span>, <span class="code-str">"System Design"</span>]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="code-var">focus</span> = [<span class="code-str">"Backend APIs"</span>, <span class="code-str">"Telegram Bots"</span>, <span class="code-str">"Media Pipelines"</span>, <span class="code-str">"System Design"</span>]<br>
         &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="code-var">core_skills</span> = [<span class="code-str">"Data Structures"</span>, <span class="code-str">"Algorithms"</span>, <span class="code-str">"OOPs"</span>, <span class="code-str">"DBMS"</span>]<br>
       </div>
     </div>
@@ -842,6 +841,26 @@
           <span class="tag">Flask</span>
           <span class="tag">REST APIs</span>
           <span class="tag">MySQL</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">SQLAlchemy</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">Neon</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Bots, Media & Integrations</h3>
+        <p class="card-subtitle">// Automation layer</p>
+        <div class="card-tags">
+          <span class="tag">Telegram Bot API</span>
+          <span class="tag">Pyrogram</span>
+          <span class="tag">python-telegram-bot</span>
+          <span class="tag">Telethon (MTProto)</span>
+          <span class="tag">yt-dlp</span>
+          <span class="tag">FFmpeg</span>
+          <span class="tag">Third-party APIs</span>
+          <span class="tag">Background Jobs</span>
         </div>
       </div>
 
@@ -853,6 +872,12 @@
           <span class="tag">Kubernetes</span>
           <span class="tag">Git</span>
           <span class="tag">GitHub</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">Railway</span>
+          <span class="tag">Render</span>
+          <span class="tag">pytest</span>
+          <span class="tag">Flask-Limiter</span>
+          <span class="tag">Waitress</span>
           <span class="tag">VS Code</span>
           <span class="tag">Jupyter</span>
           <span class="tag">DSA</span>
@@ -901,34 +926,36 @@
     <h2 class="section-title">Featured Projects</h2>
     <div class="grid">
       <div class="card">
-        <h3 class="card-title">Lungs Disease Risk Prediction</h3>
-        <div class="card-subtitle">Final Year Project</div>
-        <p class="card-desc">AI-powered mobile application designed for lung and heart disease risk evaluation leveraging Machine Learning models.</p>
+        <h3 class="card-title">MoviezNagar</h3>
+        <div class="card-subtitle">Current Project | In Progress</div>
+        <p class="card-desc">Telegram movie search and delivery bot built on Pyrogram. Indexes a database channel, ranks results with fuzzy matching, and handles user requests with an admin fulfilment queue and automatic cleanup of low-quality uploads. Access is tiered: each unlock attempt gets a one-time, per-user token that is verified through a deep link back into the bot, with ad-network health checks and failover across several link networks. Admin tools cover membership grants, activity feeds and Excel exports, plus a token-protected web dashboard with live stats. Data is kept in SQLite with Supabase sync, and all timestamps run on a single IST clock.</p>
         <div class="card-tags">
-          <span class="tag">TensorFlow Lite</span>
-          <span class="tag">Firebase</span>
-          <span class="tag">Android</span>
+          <span class="tag">Python</span>
+          <span class="tag">Pyrogram</span>
+          <span class="tag">Flask</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">HMAC Auth</span>
+          <span class="tag">openpyxl</span>
+          <span class="tag">Render</span>
         </div>
       </div>
 
       <div class="card">
-        <h3 class="card-title">IoT Smart Energy Meter</h3>
-        <div class="card-subtitle">Third Year Project</div>
-        <p class="card-desc">Real-time smart electricity monitoring system enabling remote tracking and alerting through hardware sensors.</p>
+        <h3 class="card-title">MediaForge</h3>
+        <div class="card-subtitle">Current Project | In Progress</div>
+        <p class="card-desc">Multi-platform media downloader and converter that runs as both a Flask web app and a Telegram bot on one shared backend. Background download jobs with real progress from yt-dlp hooks, FFmpeg conversion (format, resolution, aspect ratio, trim, target size), and finished files stored in a private Telegram channel over MTProto, so files up to 2 GB need no permanent disk. Includes expiring file-to-link sharing with resumable downloads, user accounts with tiers and daily quotas, an admin panel with bans and feedback, encrypted backups, and a 20-file pytest suite. Dockerised and deployed on Railway with Neon PostgreSQL, and a GitHub Actions workflow that keeps yt-dlp current.</p>
         <div class="card-tags">
-          <span class="tag">IoT</span>
-          <span class="tag">Microcontrollers</span>
-          <span class="tag">Sensors</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3 class="card-title">Password Door Lock System</h3>
-        <div class="card-subtitle">Second Year Project</div>
-        <p class="card-desc">Embedded electronic door lock incorporating keypad authentication protocols and automated locking mechanisms.</p>
-        <div class="card-tags">
-          <span class="tag">Embedded Systems</span>
-          <span class="tag">Keypad Auth</span>
+          <span class="tag">Python</span>
+          <span class="tag">Flask</span>
+          <span class="tag">SQLAlchemy</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">yt-dlp</span>
+          <span class="tag">FFmpeg</span>
+          <span class="tag">Telethon</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Railway</span>
+          <span class="tag">GitHub Actions</span>
         </div>
       </div>
     </div>
@@ -1041,7 +1068,7 @@
         const ly = Math.sin(angleLeft) * distLeft;
 
         const angleRight = Math.atan2(e.clientY - rightEyeCenter.y, e.clientX - rightEyeCenter.x);
-        const distRight = Math.min(3, Math.hypot(e.clientX - rightEyeCenter.x, e.clientX - rightEyeCenter.x) / 30);
+        const distRight = Math.min(3, Math.hypot(e.clientX - rightEyeCenter.x, e.clientY - rightEyeCenter.y) / 30);
         const rx = Math.cos(angleRight) * distRight;
         const ry = Math.sin(angleRight) * distRight;
 
@@ -1223,5 +1250,3 @@
     </script>
 </body>
 </html>
-
-```
