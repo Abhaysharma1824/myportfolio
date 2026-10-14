@@ -695,6 +695,9 @@
     .skills-carousel { position: relative; outline: none; }
     
     .sk-stage { position: relative; }
+    .skills-carousel.is-static .sk-nav,
+    .skills-carousel.is-static .sk-dots { display: none; }
+    .skills-carousel.is-static .sk-viewport { cursor: default; }
     
     .sk-viewport {
       overflow: hidden;
@@ -897,7 +900,7 @@
     <h1 class="hero-title">Abhay Sharma</h1>
     <div class="hero-subtitle">&gt; Backend & Software Developer</div>
     <p class="hero-desc">
-      B.Tech graduate in Electronics and Communication Engineering with a strong interest in Software Development, Python, Backend Development, REST APIs, and FastAPI. I build software solutions, Telegram bots, and management systems.
+      B.Tech graduate in Electronics and Communication Engineering who builds Python backends, REST APIs, and Telegram bots, and enjoys taking products end to end as a full-stack and web developer, from database and API to a responsive front end. My current work includes MoviezNagar, a membership-tiered Telegram bot with an admin dashboard, and MediaForge, a media download and conversion web platform on Flask and PostgreSQL. Strong in Data Structures, Algorithms, OOPs, and databases, and open to backend, full-stack, and web development roles where I can keep learning and build scalable applications.
     </p>
     <div class="hero-buttons">
       <a href="Abhay_Sharma.pdf" download="Abhay_Sharma_Resume.pdf" class="btn btn-primary">
@@ -930,7 +933,6 @@
         &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="code-var">core_skills</span> = [<span class="code-str">"Data Structures"</span>, <span class="code-str">"Algorithms"</span>, <span class="code-str">"OOPs"</span>, <span class="code-str">"DBMS"</span>]<br>
       </div>
     </div>
-    <p class="summary-text">B.Tech graduate in Electronics and Communication Engineering with strong interest in Software Development, Python, Backend Development, REST APIs, and FastAPI. Skilled in building software solutions, AI-powered applications, and management systems through academic, freelance, and personal projects. Strong foundation in Data Structures, Algorithms, OOPs, databases, and problem-solving, with a passion for learning modern technologies and building scalable applications.</p>
     <div class="soft-skills">
       <h3 class="sub-heading">Soft Skills</h3>
       <span class="tag">Adaptability</span><span class="tag">Quick Learning</span><span class="tag">Problem Solving</span><span class="tag">Team Collaboration</span><span class="tag">Communication</span>
@@ -1067,44 +1069,64 @@
   <!-- Projects Section -->
   <section id="projects">
     <h2 class="section-title">Featured Projects</h2>
-    <div class="grid">
-      <div class="card">
-        <h3 class="card-title">MoviezNagar</h3>
-        <div class="card-subtitle">Telegram Bot Platform with Membership Tiers & Admin Dashboard</div>
-        <ul class="card-list">
-          <li>Built an asynchronous Telegram bot with inline-button menus, paginated search, request tracking, suggestion and bug reporting with cooldowns, and time-limited membership tiers unlocked via one-time per-user verification tokens, with provider health checks and fallback.</li>
-          <li>Developed admin tools for access grants, usage stats, activity logs, maintenance mode, and Excel exports, plus scheduled cleanup, uptime monitoring, and SQLite-to-Supabase sync with monthly archival and restore.</li>
-        </ul>
-        <div class="card-tags">
-          <span class="tag">Python</span>
-          <span class="tag">Pyrogram</span>
-          <span class="tag">Flask</span>
-          <span class="tag">Supabase</span>
-          <span class="tag">SQLite</span>
-          <span class="tag">asyncio</span>
-          <span class="tag">openpyxl</span>
-          <span class="tag">Render</span>
+
+    <div class="skills-carousel" id="projectsCarousel" data-per-view="2" tabindex="0"
+         role="region" aria-roledescription="carousel" aria-label="Featured projects">
+      <div class="sk-stage">
+        <button class="sk-nav sk-prev" type="button" aria-label="Previous projects">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+
+        <div class="sk-viewport">
+          <div class="sk-track">
+
+          <div class="sk-slide"><div class="card">
+          <h3 class="card-title">MoviezNagar</h3>
+          <div class="card-subtitle">Telegram Bot Platform with Membership Tiers & Admin Dashboard</div>
+          <ul class="card-list">
+            <li>Built an asynchronous Telegram bot with inline-button menus, paginated search, request tracking, suggestion and bug reporting with cooldowns, and time-limited membership tiers unlocked via one-time per-user verification tokens, with provider health checks and fallback.</li>
+            <li>Developed admin tools for access grants, usage stats, activity logs, maintenance mode, and Excel exports, plus scheduled cleanup, uptime monitoring, and SQLite-to-Supabase sync with monthly archival and restore.</li>
+          </ul>
+          <div class="card-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Pyrogram</span>
+            <span class="tag">Flask</span>
+            <span class="tag">Supabase</span>
+            <span class="tag">SQLite</span>
+            <span class="tag">asyncio</span>
+            <span class="tag">openpyxl</span>
+            <span class="tag">Render</span>
+          </div>
+          </div></div>
+
+          <div class="sk-slide"><div class="card">
+          <h3 class="card-title">MediaForge</h3>
+          <div class="card-subtitle">Media Download, Conversion & File-Sharing Platform</div>
+          <ul class="card-list">
+            <li>Built a responsive web app (dark/light theme) and button-driven Telegram bot on one shared Python core: download media from 11 platforms with quality and size previews, convert video, audio and images, create expiring share links, with live progress, queue positions, email-verified accounts, history, and tiered daily quotas shared across web and Telegram.</li>
+            <li>Engineered a custom priority job scheduler with lanes, disk-space reservations, and typed plain-language errors. Secured with SSRF-safe URL validation, CSRF protection, rate limiting, and hashed tokens; added an admin console with audit trail, backups, health endpoints, and Docker CI/CD (Railway, Neon).</li>
+          </ul>
+          <div class="card-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Flask</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Docker</span>
+            <span class="tag">FFmpeg</span>
+            <span class="tag">yt-dlp</span>
+            <span class="tag">Railway</span>
+            <span class="tag">GitHub Actions</span>
+          </div>
+          </div></div>
+
+          </div>
         </div>
+
+        <button class="sk-nav sk-next" type="button" aria-label="Next projects">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
       </div>
 
-      <div class="card">
-        <h3 class="card-title">MediaForge</h3>
-        <div class="card-subtitle">Media Download, Conversion & File-Sharing Platform</div>
-        <ul class="card-list">
-          <li>Built a responsive web app (dark/light theme) and button-driven Telegram bot on one shared Python core: download media from 11 platforms with quality and size previews, convert video, audio and images, create expiring share links, with live progress, queue positions, email-verified accounts, history, and tiered daily quotas shared across web and Telegram.</li>
-          <li>Engineered a custom priority job scheduler with lanes, disk-space reservations, and typed plain-language errors. Secured with SSRF-safe URL validation, CSRF protection, rate limiting, and hashed tokens; added an admin console with audit trail, backups, health endpoints, and Docker CI/CD (Railway, Neon).</li>
-        </ul>
-        <div class="card-tags">
-          <span class="tag">Python</span>
-          <span class="tag">Flask</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">Docker</span>
-          <span class="tag">FFmpeg</span>
-          <span class="tag">yt-dlp</span>
-          <span class="tag">Railway</span>
-          <span class="tag">GitHub Actions</span>
-        </div>
-      </div>
+      <div class="sk-dots" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -1436,10 +1458,8 @@
         });
         });
 
-        // --- Skills Carousel: 3 cards in view, arrows, dots, drag / swipe, keyboard ---
-        (function () {
-          const root = document.getElementById('skillsCarousel');
-          if (!root) return;
+        // --- Carousel (Skills + Projects): arrows, dots, drag / swipe, keyboard. Add data-per-view to set cards in view ---
+        document.querySelectorAll('.skills-carousel').forEach(function (root) {
 
           const viewport = root.querySelector('.sk-viewport');
           const track    = root.querySelector('.sk-track');
@@ -1454,9 +1474,10 @@
           let index = 0, perView = 3, maxIndex = 0, slideW = 0, step = 0;
           let dragging = false, startX = 0, dx = 0, startT = 0, pointerId = null;
 
+          const maxPerView = parseInt(root.dataset.perView, 10) || 3;
           function getPerView() {
             const w = window.innerWidth;
-            return w <= 640 ? 1 : (w <= 980 ? 2 : 3);
+            return w <= 640 ? 1 : (w <= 980 ? Math.min(2, maxPerView) : maxPerView);
           }
 
           function buildDots() {
@@ -1494,6 +1515,7 @@
             slides.forEach(s => { s.style.flex = '0 0 ' + slideW + 'px'; });
             maxIndex = Math.max(0, slides.length - perView);
             index    = Math.min(index, maxIndex);
+            root.classList.toggle('is-static', maxIndex === 0);   // everything fits: hide arrows + dots
             buildDots();
             paint(false);
           }
@@ -1508,6 +1530,7 @@
 
           // ---- Drag / swipe (mouse, touch and pen) ----
           viewport.addEventListener('pointerdown', (e) => {
+            if (maxIndex === 0) return;
             if (e.pointerType === 'mouse' && e.button !== 0) return;
             dragging = true; pointerId = e.pointerId;
             startX = e.clientX; dx = 0; startT = performance.now();
@@ -1545,7 +1568,7 @@
 
           window.addEventListener('resize', layout);
           layout();
-        })();
+        });
     </script>
 </body>
 </html>
