@@ -691,6 +691,124 @@
       box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
     }
 
+    /* --- Skills Carousel --- */
+    .skills-carousel { position: relative; outline: none; }
+    
+    .sk-stage { position: relative; }
+    
+    .sk-viewport {
+      overflow: hidden;
+      padding: 14px 0 24px;          /* room for the card hover-lift + glow */
+      touch-action: pan-y;           /* vertical page scroll still works on phones */
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .sk-viewport.is-dragging { cursor: grabbing; }
+    
+    .sk-track {
+      display: flex;
+      gap: 1.5rem;
+      align-items: stretch;
+      will-change: transform;
+    }
+    
+    .sk-slide {
+      flex: 0 0 calc((100% - 3rem) / 3);   /* JS overrides this with exact pixels */
+      min-width: 0;
+      opacity: 0.35;
+      transform: scale(0.94);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 0.8, 0.2, 1);
+    }
+    .sk-slide.is-visible { opacity: 1; transform: scale(1); }
+    .sk-slide .card { height: 100%; }
+    
+    /* Left / Right buttons */
+    .sk-nav {
+      position: absolute;
+      top: 50%;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 3;
+      transform: translateY(-50%);
+      transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .sk-nav:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      box-shadow: 0 0 18px var(--glass-glow);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .sk-nav:active { transform: translateY(-50%) scale(0.94); }
+    .sk-nav:focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 3px; }
+    .sk-prev { left: -23px; }
+    .sk-next { right: -23px; }
+    
+    /* Dots */
+    .sk-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.4rem; }
+    .sk-dot {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: none;
+      border-radius: 99px;
+      background: var(--text-muted);
+      opacity: 0.35;
+      cursor: pointer;
+      transition: width 0.4s ease, opacity 0.3s ease, background 0.3s ease;
+    }
+    .sk-dot:hover { opacity: 0.7; }
+    .sk-dot.active {
+      width: 28px;
+      opacity: 1;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+    }
+    
+    @media (max-width: 768px) {
+      .sk-nav { width: 40px; height: 40px; background: var(--nav-bg); }
+      .sk-prev { left: 4px; }
+      .sk-next { right: 4px; }
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .sk-slide, .sk-dot, .sk-nav { transition: none; }
+    }
+    
+    /* --- Resume-style helpers --- */
+    .sub-heading {
+      font-family: var(--font-mono);
+      color: var(--accent-green);
+      font-size: 1.05rem;
+      margin: 0 0 1.2rem;
+    }
+    .sub-heading::before { content: '> '; color: var(--accent-purple); }
+    .sub-heading.spaced { margin-top: 2.8rem; }
+    .summary-text {
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      font-size: 1rem;
+    }
+    .soft-skills { margin-top: 1.5rem; }
+    .soft-skills .sub-heading { margin-bottom: 0.6rem; }
+    .card-date {
+      float: right;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .card-list { list-style: none; color: var(--text-muted); font-size: 0.93rem; margin-bottom: 1.5rem; flex-grow: 1; }
+    .card-list li { position: relative; padding-left: 1.1rem; margin-bottom: 0.6rem; }
+    .card-list li::before { content: '▹'; position: absolute; left: 0; color: var(--accent-green); }
+
     @media (max-width: 768px) {
       .hero-title { font-size: 2.8rem; }
       .nav-links { display: none; }
@@ -757,6 +875,7 @@
         <li><a href="#skills">Skills</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       
@@ -778,7 +897,7 @@
     <h1 class="hero-title">Abhay Sharma</h1>
     <div class="hero-subtitle">&gt; Backend & Software Developer</div>
     <p class="hero-desc">
-      ECE B.Tech graduate specializing in Python Programming, FastAPI, Django, REST API architecture, and Full stack web applications. Dedicated to engineering efficient algorithms and scalable systems.
+      B.Tech graduate in Electronics and Communication Engineering with a strong interest in Software Development, Python, Backend Development, REST APIs, and FastAPI. I build software solutions, Telegram bots, and management systems.
     </p>
     <div class="hero-buttons">
       <a href="Abhay_Sharma.pdf" download="Abhay_Sharma_Resume.pdf" class="btn btn-primary">
@@ -811,82 +930,110 @@
         &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="code-var">core_skills</span> = [<span class="code-str">"Data Structures"</span>, <span class="code-str">"Algorithms"</span>, <span class="code-str">"OOPs"</span>, <span class="code-str">"DBMS"</span>]<br>
       </div>
     </div>
-  </section>
-
-  <!-- Technical Skills Section -->
-  <section id="skills">
-    <h2 class="section-title">Technical Skills</h2>
-    <div class="grid">
-      <div class="card">
-        <h3 class="card-title">Languages & Web</h3>
-        <p class="card-subtitle">// Core syntax</p>
-        <div class="card-tags">
-          <span class="tag">Python</span>
-          <span class="tag">Java</span>
-          <span class="tag">C</span>
-          <span class="tag">C++</span>
-          <span class="tag">HTML5</span>
-          <span class="tag">CSS3</span>
-          <span class="tag">JavaScript</span>
-          <span class="tag">React</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3 class="card-title">Backend & Databases</h3>
-        <p class="card-subtitle">// Data & Logic layer</p>
-        <div class="card-tags">
-          <span class="tag">FastAPI</span>
-          <span class="tag">Django</span>
-          <span class="tag">Flask</span>
-          <span class="tag">REST APIs</span>
-          <span class="tag">MySQL</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">SQLite</span>
-          <span class="tag">SQLAlchemy</span>
-          <span class="tag">Supabase</span>
-          <span class="tag">Neon</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3 class="card-title">Bots, Media & Integrations</h3>
-        <p class="card-subtitle">// Automation layer</p>
-        <div class="card-tags">
-          <span class="tag">Telegram Bot API</span>
-          <span class="tag">Pyrogram</span>
-          <span class="tag">python-telegram-bot</span>
-          <span class="tag">Telethon (MTProto)</span>
-          <span class="tag">yt-dlp</span>
-          <span class="tag">FFmpeg</span>
-          <span class="tag">Third-party APIs</span>
-          <span class="tag">Background Jobs</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3 class="card-title">Tools & Engineering</h3>
-        <p class="card-subtitle">// Workflow & Fundamentals</p>
-        <div class="card-tags">
-          <span class="tag">Docker</span>
-          <span class="tag">Kubernetes</span>
-          <span class="tag">Git</span>
-          <span class="tag">GitHub</span>
-          <span class="tag">GitHub Actions</span>
-          <span class="tag">Railway</span>
-          <span class="tag">Render</span>
-          <span class="tag">pytest</span>
-          <span class="tag">Flask-Limiter</span>
-          <span class="tag">Waitress</span>
-          <span class="tag">VS Code</span>
-          <span class="tag">Jupyter</span>
-          <span class="tag">DSA</span>
-          <span class="tag">OOPs</span>
-          <span class="tag">DBMS</span>
-        </div>
-      </div>
+    <p class="summary-text">B.Tech graduate in Electronics and Communication Engineering with strong interest in Software Development, Python, Backend Development, REST APIs, and FastAPI. Skilled in building software solutions, AI-powered applications, and management systems through academic, freelance, and personal projects. Strong foundation in Data Structures, Algorithms, OOPs, databases, and problem-solving, with a passion for learning modern technologies and building scalable applications.</p>
+    <div class="soft-skills">
+      <h3 class="sub-heading">Soft Skills</h3>
+      <span class="tag">Adaptability</span><span class="tag">Quick Learning</span><span class="tag">Problem Solving</span><span class="tag">Team Collaboration</span><span class="tag">Communication</span>
     </div>
   </section>
+
+<!-- Technical Skills Section -->
+<section id="skills">
+  <h2 class="section-title">Technical Skills</h2>
+
+  <div class="skills-carousel" id="skillsCarousel" tabindex="0"
+       role="region" aria-roledescription="carousel" aria-label="Technical skills">
+    <div class="sk-stage">
+      <button class="sk-nav sk-prev" type="button" aria-label="Previous skills">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+
+      <div class="sk-viewport">
+        <div class="sk-track">
+
+          <div class="sk-slide"><div class="card">
+            <h3 class="card-title">Programming Languages</h3>
+            <p class="card-subtitle">// Core syntax</p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">Java</span><span class="tag">C</span><span class="tag">C++</span>
+            </div>
+          </div></div>
+
+          <div class="sk-slide"><div class="card">
+            <h3 class="card-title">Backend Development</h3>
+            <p class="card-subtitle">// Logic layer</p>
+            <div class="card-tags">
+              <span class="tag">Flask</span><span class="tag">FastAPI</span><span class="tag">Django</span><span class="tag">REST APIs</span><span class="tag">SQLAlchemy</span><span class="tag">asyncio</span><span class="tag">Multithreading</span>
+            </div>
+          </div></div>
+
+          <div class="sk-slide"><div class="card">
+            <h3 class="card-title">Bots &amp; Integrations</h3>
+            <p class="card-subtitle">// Automation layer</p>
+            <div class="card-tags">
+              <span class="tag">Telegram Bot API</span><span class="tag">Pyrogram</span><span class="tag">python-telegram-bot</span><span class="tag">Third-Party APIs</span><span class="tag">FFmpeg</span>
+            </div>
+          </div></div>
+
+          <div class="sk-slide"><div class="card">
+            <h3 class="card-title">Frontend Development</h3>
+            <p class="card-subtitle">// UI layer</p>
+            <div class="card-tags">
+              <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript (ES6)</span><span class="tag">Jinja2 Templates</span><span class="tag">Responsive Design</span>
+            </div>
+          </div></div>
+
+          <div class="sk-slide"><div class="card">
+            <h3 class="card-title">Databases</h3>
+            <p class="card-subtitle">// Data layer</p>
+            <div class="card-tags">
+              <span class="tag">SQL</span><span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">SQLite</span><span class="tag">Supabase</span><span class="tag">Neon</span>
+            </div>
+          </div></div>
+
+          <div class="sk-slide"><div class="card">
+            <h3 class="card-title">Cloud &amp; DevOps</h3>
+            <p class="card-subtitle">// Build &amp; ship</p>
+            <div class="card-tags">
+              <span class="tag">Docker</span><span class="tag">Railway</span><span class="tag">Render</span><span class="tag">GitHub Actions (CI/CD)</span><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">VS Code</span>
+            </div>
+          </div></div>
+
+          <div class="sk-slide"><div class="card">
+            <h3 class="card-title">Security Practices</h3>
+            <p class="card-subtitle">// Defence in depth</p>
+            <div class="card-tags">
+              <span class="tag">CSRF Protection</span><span class="tag">SSRF-Safe URL Validation</span><span class="tag">Rate Limiting</span><span class="tag">Token Hashing</span>
+            </div>
+          </div></div>
+
+          <div class="sk-slide"><div class="card">
+            <h3 class="card-title">Core Concepts</h3>
+            <p class="card-subtitle">// Fundamentals</p>
+            <div class="card-tags">
+              <span class="tag">Data Structures</span><span class="tag">Algorithms</span><span class="tag">OOPs</span><span class="tag">DBMS</span><span class="tag">Job Queues &amp; Scheduling</span>
+            </div>
+          </div></div>
+
+          <div class="sk-slide"><div class="card">
+            <h3 class="card-title">Coding Platforms</h3>
+            <p class="card-subtitle">// Practice</p>
+            <div class="card-tags">
+              <span class="tag">LeetCode</span><span class="tag">HackerRank</span>
+            </div>
+          </div></div>
+
+        </div>
+      </div>
+
+      <button class="sk-nav sk-next" type="button" aria-label="Next skills">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+
+    <div class="sk-dots" aria-hidden="true"></div>
+  </div>
+</section>
 
   <!-- Experience Section -->
   <section id="experience">
@@ -895,7 +1042,10 @@
       <div class="card">
         <h3 class="card-title">Freelance Software Developer</h3>
         <div class="card-subtitle">Nov 2025 – Dec 2025</div>
-        <p class="card-desc">Engineered robust backend software solutions for inventory tracking, automated billing, and structured data pipelines. Integrated custom databases and optimized app performance.</p>
+        <ul class="card-list">
+          <li>Developed software solutions for inventory management, billing, and data handling requirements.</li>
+          <li>Implemented backend functionality, database integration, and application enhancements.</li>
+        </ul>
         <div class="card-tags">
           <span class="tag">Backend Dev</span><span class="tag">Database Integration</span>
         </div>
@@ -904,18 +1054,11 @@
       <div class="card">
         <h3 class="card-title">ADRDE, DRDO Agra</h3>
         <div class="card-subtitle">Internship | Jun 2025 – Jul 2025</div>
-        <p class="card-desc">Advanced technical problem-solving, process optimization, analytical documentation, and hardware/software protocol analysis in an R&D defense framework.</p>
+        <ul class="card-list">
+          <li>Enhanced analytical, troubleshooting, and system optimization skills through technical problem-solving and process improvement in a professional R&D environment.</li>
+        </ul>
         <div class="card-tags">
-          <span class="tag">R&D</span><span class="tag">Protocol Analysis</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3 class="card-title">Deloitte Australia</h3>
-        <div class="card-subtitle">Tech Job Simulation | Jun 2026</div>
-        <p class="card-desc">Designed Python integration scripts to digest and process complex nested IIoT JSON telemetry datasets. Formulated technical software proposals.</p>
-        <div class="card-tags">
-          <span class="tag">Python Integration</span><span class="tag">IIoT Telemetry</span>
+          <span class="tag">R&D</span><span class="tag">Troubleshooting</span>
         </div>
       </div>
     </div>
@@ -927,15 +1070,18 @@
     <div class="grid">
       <div class="card">
         <h3 class="card-title">MoviezNagar</h3>
-        <div class="card-subtitle">Current Project | In Progress</div>
-        <p class="card-desc">Telegram movie search and delivery bot built on Pyrogram. Indexes a database channel, ranks results with fuzzy matching, and handles user requests with an admin fulfilment queue and automatic cleanup of low-quality uploads. Access is tiered: each unlock attempt gets a one-time, per-user token that is verified through a deep link back into the bot, with ad-network health checks and failover across several link networks. Admin tools cover membership grants, activity feeds and Excel exports, plus a token-protected web dashboard with live stats. Data is kept in SQLite with Supabase sync, and all timestamps run on a single IST clock.</p>
+        <div class="card-subtitle">Telegram Bot Platform with Membership Tiers & Admin Dashboard</div>
+        <ul class="card-list">
+          <li>Built an asynchronous Telegram bot with inline-button menus, paginated search, request tracking, suggestion and bug reporting with cooldowns, and time-limited membership tiers unlocked via one-time per-user verification tokens, with provider health checks and fallback.</li>
+          <li>Developed admin tools for access grants, usage stats, activity logs, maintenance mode, and Excel exports, plus scheduled cleanup, uptime monitoring, and SQLite-to-Supabase sync with monthly archival and restore.</li>
+        </ul>
         <div class="card-tags">
           <span class="tag">Python</span>
           <span class="tag">Pyrogram</span>
           <span class="tag">Flask</span>
-          <span class="tag">SQLite</span>
           <span class="tag">Supabase</span>
-          <span class="tag">HMAC Auth</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">asyncio</span>
           <span class="tag">openpyxl</span>
           <span class="tag">Render</span>
         </div>
@@ -943,20 +1089,58 @@
 
       <div class="card">
         <h3 class="card-title">MediaForge</h3>
-        <div class="card-subtitle">Current Project | In Progress</div>
-        <p class="card-desc">Multi-platform media downloader and converter that runs as both a Flask web app and a Telegram bot on one shared backend. Background download jobs with real progress from yt-dlp hooks, FFmpeg conversion (format, resolution, aspect ratio, trim, target size), and finished files stored in a private Telegram channel over MTProto, so files up to 2 GB need no permanent disk. Includes expiring file-to-link sharing with resumable downloads, user accounts with tiers and daily quotas, an admin panel with bans and feedback, encrypted backups, and a 20-file pytest suite. Dockerised and deployed on Railway with Neon PostgreSQL, and a GitHub Actions workflow that keeps yt-dlp current.</p>
+        <div class="card-subtitle">Media Download, Conversion & File-Sharing Platform</div>
+        <ul class="card-list">
+          <li>Built a responsive web app (dark/light theme) and button-driven Telegram bot on one shared Python core: download media from 11 platforms with quality and size previews, convert video, audio and images, create expiring share links, with live progress, queue positions, email-verified accounts, history, and tiered daily quotas shared across web and Telegram.</li>
+          <li>Engineered a custom priority job scheduler with lanes, disk-space reservations, and typed plain-language errors. Secured with SSRF-safe URL validation, CSRF protection, rate limiting, and hashed tokens; added an admin console with audit trail, backups, health endpoints, and Docker CI/CD (Railway, Neon).</li>
+        </ul>
         <div class="card-tags">
           <span class="tag">Python</span>
           <span class="tag">Flask</span>
-          <span class="tag">SQLAlchemy</span>
           <span class="tag">PostgreSQL</span>
-          <span class="tag">yt-dlp</span>
-          <span class="tag">FFmpeg</span>
-          <span class="tag">Telethon</span>
           <span class="tag">Docker</span>
+          <span class="tag">FFmpeg</span>
+          <span class="tag">yt-dlp</span>
           <span class="tag">Railway</span>
           <span class="tag">GitHub Actions</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education & Certifications Section -->
+  <section id="education">
+    <h2 class="section-title">Education & Certifications</h2>
+    <h3 class="sub-heading">Education</h3>
+    <div class="grid">
+      <div class="card">
+        <h3 class="card-title">B.Tech (Electronics & Communication Engineering)</h3>
+        <div class="card-subtitle">2022 – 2026 | 64.85%</div>
+        <p class="card-desc">Raja Balwant Singh Engineering Technical Campus, Agra</p>
+      </div>
+      <div class="card">
+        <h3 class="card-title">Intermediate (CBSE)</h3>
+        <div class="card-subtitle">2021 | 72.3%</div>
+        <p class="card-desc">Kendriya Vidyalaya No. 3, Agra</p>
+      </div>
+      <div class="card">
+        <h3 class="card-title">High School (CBSE)</h3>
+        <div class="card-subtitle">2018 | 73.4%</div>
+        <p class="card-desc">Kendriya Vidyalaya No. 3, Agra</p>
+      </div>
+    </div>
+
+    <h3 class="sub-heading spaced">Certifications</h3>
+    <div class="grid">
+      <div class="card">
+        <h3 class="card-title">Industrial Training / Certification</h3>
+        <div class="card-subtitle">ADRDE, DRDO | Jun 2026</div>
+        <p class="card-desc">Assisted in technical documentation and analyzed software/hardware protocols for defense-related aerodynamic systems.</p>
+      </div>
+      <div class="card">
+        <h3 class="card-title">Technology Job Simulation</h3>
+        <div class="card-subtitle">Deloitte Australia (via Forage) | Jun 2026</div>
+        <p class="card-desc">Built Python integration scripts for nested IIoT JSON telemetry data and drafted software proposal layouts.</p>
       </div>
     </div>
   </section>
@@ -983,6 +1167,10 @@
         <a href="https://www.linkedin.com/in/abhay-sharma-1b5509247" target="_blank" rel="noopener noreferrer" class="btn btn-linkedin">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.64a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z"/></svg>
           LinkedIn Profile
+        </a>
+        <a href="https://github.com/Abhaysharma1824" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+          GitHub
         </a>
         <a href="https://wa.me/916396023374" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
@@ -1247,6 +1435,117 @@
             }
         });
         });
+
+        // --- Skills Carousel: 3 cards in view, arrows, dots, drag / swipe, keyboard ---
+        (function () {
+          const root = document.getElementById('skillsCarousel');
+          if (!root) return;
+
+          const viewport = root.querySelector('.sk-viewport');
+          const track    = root.querySelector('.sk-track');
+          const slides   = Array.from(track.children);
+          const prevBtn  = root.querySelector('.sk-prev');
+          const nextBtn  = root.querySelector('.sk-next');
+          const dotsWrap = root.querySelector('.sk-dots');
+
+          const EASE = 'transform 0.65s cubic-bezier(0.22, 0.8, 0.2, 1)';
+          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+          let index = 0, perView = 3, maxIndex = 0, slideW = 0, step = 0;
+          let dragging = false, startX = 0, dx = 0, startT = 0, pointerId = null;
+
+          function getPerView() {
+            const w = window.innerWidth;
+            return w <= 640 ? 1 : (w <= 980 ? 2 : 3);
+          }
+
+          function buildDots() {
+            dotsWrap.innerHTML = '';
+            for (let i = 0; i <= maxIndex; i++) {
+              const b = document.createElement('button');
+              b.type = 'button';
+              b.className = 'sk-dot';
+              b.setAttribute('aria-label', 'Go to position ' + (i + 1));
+              b.addEventListener('click', () => go(i));
+              dotsWrap.appendChild(b);
+            }
+          }
+
+          function paint(animate) {
+            track.style.transition = (animate && !reduceMotion) ? EASE : 'none';
+            track.style.transform  = 'translateX(' + (-index * step) + 'px)';
+            slides.forEach((s, i) => s.classList.toggle('is-visible', i >= index && i < index + perView));
+            Array.from(dotsWrap.children).forEach((d, i) => d.classList.toggle('active', i === index));
+          }
+
+          function go(i, animate) {
+            index = Math.max(0, Math.min(maxIndex, i));
+            paint(animate !== false);
+          }
+
+          function next() { go(index >= maxIndex ? 0 : index + 1); }          // wraps to first
+          function prev() { go(index <= 0 ? maxIndex : index - 1); }          // wraps to last
+
+          function layout() {
+            perView  = getPerView();
+            const gap = parseFloat(getComputedStyle(track).columnGap) || 24;
+            slideW   = (viewport.clientWidth - gap * (perView - 1)) / perView;
+            step     = slideW + gap;
+            slides.forEach(s => { s.style.flex = '0 0 ' + slideW + 'px'; });
+            maxIndex = Math.max(0, slides.length - perView);
+            index    = Math.min(index, maxIndex);
+            buildDots();
+            paint(false);
+          }
+
+          prevBtn.addEventListener('click', prev);
+          nextBtn.addEventListener('click', next);
+
+          root.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft')  { e.preventDefault(); prev(); }
+            if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+          });
+
+          // ---- Drag / swipe (mouse, touch and pen) ----
+          viewport.addEventListener('pointerdown', (e) => {
+            if (e.pointerType === 'mouse' && e.button !== 0) return;
+            dragging = true; pointerId = e.pointerId;
+            startX = e.clientX; dx = 0; startT = performance.now();
+            track.style.transition = 'none';
+            viewport.classList.add('is-dragging');
+            try { viewport.setPointerCapture(pointerId); } catch (err) {}
+          });
+
+          viewport.addEventListener('pointermove', (e) => {
+            if (!dragging || e.pointerId !== pointerId) return;
+            dx = e.clientX - startX;
+            let x = -index * step + dx;
+            const min = -maxIndex * step, max = 0;
+            if (x > max) x = max + (x - max) * 0.35;          // rubber-band at the ends
+            if (x < min) x = min + (x - min) * 0.35;
+            track.style.transform = 'translateX(' + x + 'px)';
+          });
+
+          function endDrag(e) {
+            if (!dragging || (e && e.pointerId !== pointerId)) return;
+            dragging = false;
+            viewport.classList.remove('is-dragging');
+            try { viewport.releasePointerCapture(pointerId); } catch (err) {}
+
+            const elapsed  = Math.max(1, performance.now() - startT);
+            const velocity = Math.abs(dx) / elapsed;           // px per ms
+            let delta = -Math.round(dx / step);
+            if (delta === 0 && (Math.abs(dx) > slideW * 0.18 || velocity > 0.5)) {
+              delta = dx < 0 ? 1 : -1;
+            }
+            go(index + delta);
+          }
+          viewport.addEventListener('pointerup', endDrag);
+          viewport.addEventListener('pointercancel', endDrag);
+
+          window.addEventListener('resize', layout);
+          layout();
+        })();
     </script>
 </body>
 </html>
